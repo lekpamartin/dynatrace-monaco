@@ -1,5 +1,7 @@
 # Définition 
 
+# Simply smarter
+Il s'agit de configs (Tableau de bord et SLO) de base fournies par Dynatrace que nous déployons automatiquement avec Monaco. 
 
 
 # Monaco
