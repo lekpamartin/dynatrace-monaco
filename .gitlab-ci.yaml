@@ -62,7 +62,8 @@ apply-config:
   environment: $GITLAB_ENV
   script:
     - python generate-config.py
-    - monaco deploy manifest.yaml -c
+    - monaco deploy manifest-base.yaml -c
+    - monaco deploy manifest-custom.yaml -c
     - python manage-cluster.py
   rules:
     - if: $CI_PIPELINE_SOURCE == "web"
