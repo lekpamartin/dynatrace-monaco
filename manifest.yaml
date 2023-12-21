@@ -1,0 +1,15 @@
+manifestVersion: 1.0
+projects:
+  - name: Base
+    path: base
+
+environmentGroups:
+  - name: ENV
+    environments:
+      - name: ENV
+        url:
+          type: environment
+          value: "DT_URL"
+        auth:
+          token:
+            name: "DT_TOKEN_ENV"
