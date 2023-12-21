@@ -10,6 +10,7 @@
 
 ## Github action 
 Des actions sont configurés pour construire automatiquement une image Docker pour Monaco. Pensez à ajouter dans vos certificats dans "certs" pour authentifier la communication entre Monaco et Dynatrace. Retrouvez les images buildés dans les packages : 
+[Voir les images](https://github.com/users/lekpamartin/packages/container/package/dynatrace-monaco)
 ```bash
 [Voir les images](https://github.com/users/lekpamartin/packages/container/package/dynatrace-monaco)
 ```
