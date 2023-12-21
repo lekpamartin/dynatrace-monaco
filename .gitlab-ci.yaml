@@ -1,0 +1,68 @@
+workflow:
+  name: 'Monaco'
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "main"
+      variables:
+        GITLAB_ENV: PROD
+    - when: always
+  
+variables:
+  KUBERNETES_PULL_POLICY: "always"
+  GITLAB_ENV: dev
+
+
+default:
+  image: 
+    name: lekpamartin/dynatrace-monaco:2.0
+    pull_policy: always
+  #tags:
+  #  - tag1
+
+#before_script:
+#  - PREVIOUS_CI_JOB_STATUS="${CI_JOB_STATUS}
+
+#after_script:
+#  - echo "$CI_JOB_NAME=${CI_JOB_STATUS}" >> variables.env
+
+stages:
+  - export
+  - run
+
+export-config:
+  stage: export
+  environment: $GITLAB_ENV
+  script:
+    - monaco download -m manifest.yaml -e ENV -o download/`date +%Y-%m-%d_%H-%M`
+  artifacts:
+    name: "dynatrace-export-config"
+    expire_in: 1 weeks
+    paths: 
+      - download/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "schedule"
+
+export-cluster:
+  stage: export
+  environment: $GITLAB_ENV
+  script:
+    - python export-cluster.py
+  artifacts:
+    name: "dynatrace-export-cluster"
+    expire_in: 1 weeks
+    paths: 
+      - download/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "schedule"
+
+apply-config:
+  stage: run
+  #tags: 
+  #  - tag2
+  needs: ["export-config","export-cluster"]
+  environment: $GITLAB_ENV
+  script:
+    - python generate-config.py
+    - monaco deploy manifest.yaml -c
+    - python manage-cluster.py
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
