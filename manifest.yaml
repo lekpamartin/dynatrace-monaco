@@ -12,4 +12,10 @@ environmentGroups:
           value: "DT_URL"
         auth:
           token:
-            name: "DT_TOKEN_ENV"
+            name: "DT_TOKEN"
+          #Only for SaaS
+          oAuth:
+            clientId:
+              name: DT_OAUTH_CLIENT_ID
+            clientSecret:
+              name: DT_OAUTH_CLIENT_SECRET

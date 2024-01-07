@@ -1,2 +1,5 @@
-certs/
+.logs
+.certs/
 !certs/readme.md
+monaco*
+download_*
