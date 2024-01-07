@@ -13,7 +13,7 @@ variables:
 
 default:
   image: 
-    name: lekpamartin/dynatrace-monaco:2.0
+    name: ghcr.io/lekpamartin/dynatrace-monaco:main
     pull_policy: always
   #tags:
   #  - tag1
